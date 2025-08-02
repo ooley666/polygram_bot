@@ -1,16 +1,18 @@
 import asyncio
 import logging
+import os
 
 from aiogram import Bot, Dispatcher
 from aiogram.types import Update
 
-from configs.bot_config import TOKEN
+
 from bot.handlers.base import router_main
 
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
+TOKEN = os.getenv("BOT_TOKEN_TEST")
 
 async def log_update_type(update: Update, bot: Bot):
     logger.info(f"Received update type: {update.model_dump().keys()}")

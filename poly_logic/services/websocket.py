@@ -1,11 +1,13 @@
 import json
+import os
 
 import websockets
 from aiogram.types import CallbackQuery
 from py_clob_client.client import ClobClient
 
-from configs.poly_config import websocket_endpoint, host, key, chain_id
+from configs.poly_config import websocket_endpoint, host, chain_id
 
+key = os.getenv("POLY_CLOB_KEY")
 
 def auth():
     client = ClobClient(host, key=key, chain_id=chain_id)
