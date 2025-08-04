@@ -17,5 +17,5 @@ def track_event_kb(e: Event):
     current_outcome_prices = json.loads(e.markets[0].outcome_prices)
     current_yes_price = current_outcome_prices[0]
     current_no_price = current_outcome_prices[1]
-    return InlineKeyboardMarkup(inline_keyboard=[[InlineKeyboardButton(text=f'Track "Yes" price (current price is {current_yes_price}', callback_data=f'clob_token:yes)')],
-                                                 [InlineKeyboardButton(text=f'Track "No" price (current price is {current_no_price})', callback_data=f'clob_token:no)')]])
+    return InlineKeyboardMarkup(inline_keyboard=[[InlineKeyboardButton(text=f'Track "Yes" price (current price is {current_yes_price}', callback_data=f'clob_token:yes')],
+                                                 [InlineKeyboardButton(text=f'Track "No" price (current price is {current_no_price})', callback_data=f'clob_token:no')]])

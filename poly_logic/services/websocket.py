@@ -6,6 +6,7 @@ from aiogram.types import CallbackQuery
 from py_clob_client.client import ClobClient
 
 from configs.poly_config import websocket_endpoint, host, chain_id
+from poly_logic.services.ws_message_handlers import on_message
 
 key = os.getenv("POLY_CLOB_KEY")
 
@@ -21,15 +22,18 @@ def auth():
 
 
 
-async def init_websocket(asset_token, ws_message_handler, callback: CallbackQuery):
+async def init_websocket(asset_token,  callback: CallbackQuery, bot):
+    await callback.message.edit_text(text = "Connecting...")
+    print("Asset token:", asset_token)
+
     async with websockets.connect(websocket_endpoint) as websocket:
         await websocket.send(json.dumps({
             "auth": auth(),
             "assets_ids": [asset_token],
             "type": "market"
         }))
-    while True:
-        response = await websocket.recv()
-        message = json.loads(response)
-        if message.get('event_type') == 'book':
-            await ws_message_handler(message, callback)
+        await  callback.message.edit_text("Connected")
+        while True:
+            data = await websocket.recv()
+            print(data)
+            on_message(data, bot, callback.message.chat.id)
