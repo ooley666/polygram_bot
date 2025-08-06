@@ -24,9 +24,8 @@ def auth():
 
 
 async def init_websocket(asset_token,  callback: CallbackQuery, bot):
-    await callback.message.edit_text(text = "Connecting...")
-    print("Asset token:", asset_token)
-
+    await callback.message.answer(text = "Connecting...")
+    await callback.answer()
     while True:
         async with websockets.connect(websocket_endpoint) as websocket:
             print("Websocket connected")
@@ -35,7 +34,7 @@ async def init_websocket(asset_token,  callback: CallbackQuery, bot):
                 "assets_ids": [asset_token],
                 "type": "market"
             }))
-            await  callback.message.edit_text("Connected")
+            await callback.message.answer(text = "Connected")
             while True:
                 try:
                     data = await websocket.recv()
