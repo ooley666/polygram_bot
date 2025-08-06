@@ -26,9 +26,9 @@ async def handle_book(msg: BookEvent, bot: Bot, chat_id):
     asset_id = msg.asset_id
     bids = msg.bids
     asks = msg.asks
-    spread = float(asks[0].price) - float(bids[0].price) if bids and asks else None
+    spread = float(asks[-1].price) - float(bids[-1].price) if bids and asks else None
 
-    message = f"""📘 BOOK: {asset_id}
+    message = f"""📘 BOOK: {asset_id}x
 Bid     | {bids[0] if bids else 'N/A'}
 Ask     | {asks[0] if asks else 'N/A'}
 Spread  | {spread}"""
